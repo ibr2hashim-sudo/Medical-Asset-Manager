@@ -1,0 +1,7 @@
+{
+  "name": "MedTrack Medical Asset Manager",
+  "description": "Multilingual Android CMMS for tracking medical equipment with RTL support, barcode scanning, and CSV data import/export capabilities.",
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
