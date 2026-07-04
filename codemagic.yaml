@@ -12,15 +12,12 @@ workflows:
       branch_patterns:
         - pattern: main
     scripts:
-      - name: Set up local.properties
+      - name: Set up Project and Build APK
         script: |
+          cd app
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-      - name: Generate Missing Gradle Wrapper
-        script: |
           gradle wrapper --gradle-version 8.5
           chmod +x gradlew || true
-      - name: Build Android APK
-        script: |
-          ./gradlew -p app assembleDebug --no-daemon
+          ./gradlew assembleDebug --no-daemon
     artifacts:
       - "**/build/outputs/apk/**/*.apk"
