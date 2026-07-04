@@ -1,5 +1,5 @@
 workflows:
-  android-debug-workflow:
+  android-native-workflow:
     name: Android Debug Build
     max_build_duration: 60
     instance_type: mac_mini_m1
@@ -8,15 +8,11 @@ workflows:
     scripts:
       - name: Clean Project
         script: |
-          # تنظيف ملفات البناء القديمة لمنع تضارب الكاش
+          # تنظيف ملفات البناء القديمة لحل مشاكل الـ Compiler
           ./gradlew clean
-      - name: Set up SDK
-        script: |
-          # تأكد من أنك تستخدم إصدار SDK الصحيح إذا لزم الأمر
-          echo "SDK setup complete"
       - name: Build Android
         script: |
-          # بناء المشروع
+          # بناء نسخة الـ Debug
           ./gradlew assembleDebug
     artifacts:
       - app/build/outputs/apk/debug/app-debug.apk
