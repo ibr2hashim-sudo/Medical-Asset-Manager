@@ -10,7 +10,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.HealthAndSafety
+import androidx.compose.material.icons.filled.FileDownload
+import androidx.compose.material.icons.filled.FileUpload
+import androidx.compose.material.icons.filled.Translate
+import androidx.compose.material.icons.filled.PostAdd
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,16 +22,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ui.theme.*
-
-@Composable
-fun NavigationDrawerContent(
-    isRtl: Boolean,
-    onImportCsv: (Uri) -> Unit,
+import androidx.compose.ui.text.font.FontWeight
+import com.example.ui.theme.MedicalBlue
+import com.example.ui.theme.MedicalBlueLight
+import com.example.ui.theme.TextGray
     onExportCsv: () -> Unit,
     onToggleLanguage: () -> Unit,
     onSeedSampleData: () -> Unit,
