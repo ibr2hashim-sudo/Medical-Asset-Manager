@@ -13,6 +13,7 @@ val MedicalBlueDark = Color(0xFF0D47A1)
 val MedicalBlueAccent = Color(0xFF2979FF)
 val BorderGray = Color(0xFFB0BEC5)
 val TextGray = Color(0xFF546E7A)
+val TextDark = Color(0xFF263238) // تم إضافة هذا اللون لحل المشكلة
 val BadgeGrayBg = Color(0xFFCFD8DC)
 
 // ألوان الحالة (Statuses)
