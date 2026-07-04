@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    // قم بإزالة كلمة version "2.0.0" تماماً
-    id("org.jetbrains.kotlin.plugin.compose")
+    // استخدم هذا الإصدار الذي يغطي توافقية الـ Compose Compiler
+    id("org.jetbrains.kotlin.plugin.compose") version "1.9.22"
 }
 
 android {
