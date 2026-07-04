@@ -28,6 +28,11 @@ import androidx.compose.ui.text.font.FontWeight
 import com.example.ui.theme.MedicalBlue
 import com.example.ui.theme.MedicalBlueLight
 import com.example.ui.theme.TextGray
+
+@Composable
+fun NavigationDrawerContent(
+    isRtl: Boolean,
+    onImportCsv: (Uri) -> Unit,
     onExportCsv: () -> Unit,
     onToggleLanguage: () -> Unit,
     onSeedSampleData: () -> Unit,
