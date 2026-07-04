@@ -15,18 +15,12 @@ workflows:
       - name: Set up local.properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-      - name: Make Gradlew Executable
+      - name: Generate Missing Gradle Wrapper
         script: |
+          gradle wrapper --gradle-version 8.5
           chmod +x gradlew || true
-          chmod +x app/gradlew || true
       - name: Build Android APK
         script: |
-          if [ -f ./app/gradlew ]; then
-            cd app && ./gradlew assembleDebug --no-daemon
-          elif [ -f ./gradlew ]; then
-            ./gradlew assembleDebug --no-daemon
-          else
-            gradle assembleDebug --no-daemon
-          fi
+          ./gradlew assembleDebug --no-daemon
     artifacts:
       - "**/build/outputs/apk/**/*.apk"
