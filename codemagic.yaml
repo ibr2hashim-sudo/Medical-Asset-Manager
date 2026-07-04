@@ -4,8 +4,7 @@ workflows:
     max_build_duration: 60
     instance_type: mac_mini_m1
     environment:
-      groups:
-        - android-signing
+      android_ndk: 25.2.9519653
       vars:
         JAVA_VERSION: "17"
     triggering:
@@ -17,8 +16,15 @@ workflows:
       - name: Set up local.properties
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
+      - name: Make Gradlew Executable
+        script: |
+          chmod +x gradlew || true
       - name: Build Android APK
         script: |
-          gradle assembleDebug
+          if [ -f ./gradlew ]; then
+            ./gradlew assembleDebug --no-daemon
+          else
+            gradle assembleDebug --no-daemon
+          endif
     artifacts:
       - app/build/outputs/apk/**/*.apk
