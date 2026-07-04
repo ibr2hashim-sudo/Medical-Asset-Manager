@@ -5,14 +5,15 @@ workflows:
     instance_type: mac_mini_m1
     environment:
       java: 17
+    # هذه الخاصية تجعل Codemagic يحفظ ملفات الـ Gradle ولا يمسحها
+    cache:
+      paths:
+        - ~/.gradle/caches
+        - ~/.gradle/wrapper
     scripts:
-      - name: Clean Project
-        script: |
-          # تنظيف ملفات البناء القديمة لحل مشاكل الـ Compiler
-          ./gradlew clean
       - name: Build Android
         script: |
-          # بناء نسخة الـ Debug
+          # لاحظ أننا حذفنا ./gradlew clean
           ./gradlew assembleDebug
     artifacts:
       - app/build/outputs/apk/debug/app-debug.apk
