@@ -6,13 +6,9 @@ workflows:
     environment:
       java: 17
     scripts:
-      - name: Grant Permission
-        script: |
-          # إعطاء صلاحية التنفيذ لملف الـ gradlew
-          chmod +x gradlew
       - name: Build Android
         script: |
-          # بناء المشروع الآن بعد الحصول على الصلاحية
-          ./gradlew assembleDebug
+          # نستخدم gradle مباشرة من النظام دون الحاجة لملفات الـ wrapper
+          gradle assembleDebug
     artifacts:
       - app/build/outputs/apk/debug/app-debug.apk
