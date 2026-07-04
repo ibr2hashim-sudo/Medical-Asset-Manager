@@ -1,21 +1,19 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    // استخدم هذا الإصدار الذي يغطي توافقية الـ Compose Compiler
-    id("org.jetbrains.kotlin.plugin.compose") version "1.9.22"
+    // قم بحذف السطر الخاص بـ compose plugin مؤقتاً لنرى هل المشكلة منه
 }
 
 android {
-    namespace = "com.example.medicalassetmanager" // تأكد من تطابق هذا مع اسم مشروعك
-    compileSdk = 34
-
-    defaultConfig {
-        applicationId = "com.example.medicalassetmanager"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+    ...
+    buildFeatures {
+        compose = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.1" // هذا الإصدار هو الأكثر استقراراً وتوافقاً
+    }
+}
+
 
     buildFeatures {
         compose = true
