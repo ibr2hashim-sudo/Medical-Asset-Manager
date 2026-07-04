@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    // ملاحظة: إذا كنت تستخدم Room، قد تحتاج أيضاً لإضافة id("kotlin-kapt") هنا
 }
 
 android {
@@ -38,22 +39,30 @@ dependencies {
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
-    
-    // تعريف الـ BOM الخاص بـ Compose
     implementation(platform("androidx.compose:compose-bom:2023.08.00"))
     
-    // واجهة المستخدم و Material Design 3
+    // واجهة المستخدم، Material3، الأيقونات، و Coil
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3:1.2.0")
-    
-    // مكتبة الأيقونات الموسعة
     implementation("androidx.compose.material:material-icons-extended:1.6.0")
-    
-    // مكتبة Coil لتحميل الصور
     implementation("io.coil-kt:coil-compose:2.6.0")
     
-    // مكتبة التنقل (Navigation) - الحل للأخطاء الأخيرة
+    // مكتبة التنقل (Navigation)
     implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    // مكتبات الكاميرا (CameraX) - لحل أخطاء PreviewView و CameraSelector
+    val camerax_version = "1.3.1"
+    implementation("androidx.camera:camera-core:${camerax_version}")
+    implementation("androidx.camera:camera-camera2:${camerax_version}")
+    implementation("androidx.camera:camera-lifecycle:${camerax_version}")
+    implementation("androidx.camera:camera-view:${camerax_version}")
+
+    // مكتبات قاعدة البيانات (Room) - لحل أخطاء RoomDatabase و Entity
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:${room_version}")
+    implementation("androidx.room:room-ktx:${room_version}")
+    // ملاحظة: تأكد من إضافة kapt في ملف الـ plugins واستخدام k2 للتوليد إذا لزم الأمر
+    // k2("androidx.room:room-compiler:${room_version}") 
 }
