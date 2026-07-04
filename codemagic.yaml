@@ -12,12 +12,18 @@ workflows:
       branch_patterns:
         - pattern: main
     scripts:
-      - name: Build Android App From Subfolder
+      - name: Set up local.properties
         script: |
-          cd app
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
-          gradle wrapper --gradle-version 8.5
-          chmod +x gradlew || true
-          ./gradlew assembleDebug --no-daemon
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > app/local.properties || true
+      - name: Smart Android Build
+        script: |
+          if [ -f ./app/build.gradle ] || [ -f ./app/build.gradle.kts ]; then
+            echo "Building from app subfolder..."
+            gradle -p app assemble --no-daemon
+          else
+            echo "Building from root folder..."
+            gradle assemble --no-daemon
+          fi
     artifacts:
       - "**/build/outputs/apk/**/*.apk"
