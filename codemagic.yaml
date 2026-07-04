@@ -21,6 +21,6 @@ workflows:
           chmod +x gradlew || true
       - name: Build Android APK
         script: |
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew -p app assembleDebug --no-daemon
     artifacts:
       - "**/build/outputs/apk/**/*.apk"
