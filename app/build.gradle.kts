@@ -48,9 +48,12 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation("androidx.compose.material3:material3:1.2.0")
     
-    // إضافة مكتبة الأيقونات الموسعة (حل نهائي لأخطاء الأيقونات)
+    // مكتبة الأيقونات الموسعة
     implementation("androidx.compose.material:material-icons-extended:1.6.0")
     
     // مكتبة Coil لتحميل الصور
     implementation("io.coil-kt:coil-compose:2.6.0")
+    
+    // مكتبة التنقل (Navigation) - الحل للأخطاء الأخيرة
+    implementation("androidx.navigation:navigation-compose:2.7.7")
 }
