@@ -16,14 +16,8 @@ workflows:
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > local.properties
           echo "sdk.dir=$ANDROID_SDK_ROOT" > app/local.properties || true
-      - name: Smart Android Build
+      - name: Standard Android Build
         script: |
-          if [ -f ./app/build.gradle ] || [ -f ./app/build.gradle.kts ]; then
-            echo "Building from app subfolder..."
-            gradle -p app assemble --no-daemon
-          else
-            echo "Building from root folder..."
-            gradle assemble --no-daemon
-          fi
+          gradle :app:assembleDebug --no-daemon
     artifacts:
       - "**/build/outputs/apk/**/*.apk"
