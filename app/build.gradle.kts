@@ -4,16 +4,16 @@ plugins {
 }
 
 android {
-    namespace = "com.example.yourprojectname" // ضع اسم الحزمة الخاص بمشروعك هنا
-    compileSdk = 34
-
-    defaultConfig {
-        applicationId = "com.example.yourprojectname"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+    // ... إعداداتك السابقة
+    
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
 
     buildFeatures {
         compose = true
