@@ -5,17 +5,18 @@ plugins {
 }
 
 android {
-    namespace = "com.example" // تأكد من مطابقة هذا لـ package في ملفاتك
-    compileSdk = 34
-
-    defaultConfig {
-        applicationId = "com.example"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+    // ... باقي الإعدادات
+    
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+    
+    kotlinOptions {
+        jvmTarget = "17"
     }
 }
+
 
 dependencies {
     // الأساسيات
