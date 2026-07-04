@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    // استخدم الإصدار 2.0.0 كما جربنا، ولكن تأكد من إضافة google() في repositories
-    id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
+    // قم بإزالة كلمة version "2.0.0" تماماً
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
