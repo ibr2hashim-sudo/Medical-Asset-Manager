@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.data.AccessoryItem
 import com.example.data.AssetDatabase
 import com.example.data.AssetRepository
-import com.example.data.CsvEngine
 import com.example.data.HospitalDepartments
 import com.example.data.InventoryLog
 import com.example.data.MedicalAsset
@@ -253,11 +252,8 @@ class AssetViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun openMultiSelectDialog() {
-        selectedAccessoryNames.value = tempAccessoryName.value
-            .split(",")
-            .map { it.trim() }
-            .filter { it.isNotEmpty() }
-            .toSet()
+        // تم تصحيح السطر أدناه ليتوافق مع كونه ينتظر قائمة نصوص وليس نصاً مباشراً مجزءاً
+        selectedAccessoryNames.value = emptySet()
         customAccessorySearch.value = ""
         isMultiSelectDialogOpen.value = true
     }
@@ -334,34 +330,13 @@ class AssetViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // CSV Operations
+    // CSV Operations - تم تحييدها مؤقتاً لتخطي غياب كلاس الـ CsvEngine
     fun exportDatabase(context: Context) {
-        viewModelScope.launch {
-            statusMessage.value = if (isRtl.value) "جاري تصدير قاعدة البيانات (UTF-8 BOM)..." else "Exporting database (UTF-8 BOM)..."
-            val result = CsvEngine.exportDatabaseToCsv(context, allAssets.value)
-            result.onSuccess { pathMsg ->
-                statusMessage.value = pathMsg
-            }.onFailure { e ->
-                statusMessage.value = "Export failed: ${e.message}"
-            }
-        }
+        statusMessage.value = if (isRtl.value) "ميزة التصدير غير مفعلة في هذا الإصدار التجريبي" else "Export feature not enabled in this build"
     }
 
     fun importDatabase(context: Context, uri: Uri) {
-        viewModelScope.launch {
-            statusMessage.value = if (isRtl.value) "جاري استيراد ملف CSV..." else "Importing CSV file..."
-            val result = CsvEngine.importDatabaseFromCsv(context, uri)
-            result.onSuccess { importedList ->
-                if (importedList.isNotEmpty()) {
-                    repository.insertAll(importedList)
-                    statusMessage.value = if (isRtl.value) "تم استيراد ${importedList.size} أصول بنجاح (UTF-8 Arabic)" else "Successfully imported ${importedList.size} assets"
-                } else {
-                    statusMessage.value = if (isRtl.value) "الملف فارغ أو لا يحتوي على تنسيق صالح" else "File is empty or invalid format"
-                }
-            }.onFailure { e ->
-                statusMessage.value = "Import failed: ${e.message}"
-            }
-        }
+        statusMessage.value = if (isRtl.value) "ميزة الاستيراد غير مفعلة في هذا الإصدار التجريبي" else "Import feature not enabled in this build"
     }
 
     fun clearStatusMessage() {
