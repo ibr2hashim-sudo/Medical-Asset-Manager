@@ -5,8 +5,17 @@ plugins {
 }
 
 android {
-    // ... باقي الإعدادات
-    
+    namespace = "com.example" 
+    compileSdk = 34
+
+    defaultConfig {
+        applicationId = "com.example"
+        minSdk = 24
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
@@ -17,14 +26,11 @@ android {
     }
 }
 
-
 dependencies {
-    // الأساسيات
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     implementation("androidx.activity:activity-compose:1.8.2")
 
-    // Jetpack Compose
     val composeBom = platform("androidx.compose:compose-bom:2024.02.00")
     implementation(composeBom)
     implementation("androidx.compose.ui:ui")
@@ -34,24 +40,20 @@ dependencies {
     implementation("androidx.compose.runtime:runtime")
     implementation("androidx.compose.material:material-icons-extended:1.6.1")
 
-    // Room Database (تم تعديل سطر الـ ksp هنا ليعمل في Codemagic)
     val room_version = "2.6.1"
     implementation("androidx.room:room-runtime:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     add("ksp", "androidx.room:room-compiler:$room_version")
 
-    // مكتبات إضافية
     implementation("io.coil-kt:coil-compose:2.6.0")
     implementation("androidx.navigation:navigation-compose:2.7.7")
 
-    // CameraX
     val camerax_version = "1.3.1"
     implementation("androidx.camera:camera-core:$camerax_version")
     implementation("androidx.camera:camera-camera2:$camerax_version")
     implementation("androidx.camera:camera-lifecycle:$camerax_version")
     implementation("androidx.camera:camera-view:$camerax_version")
 
-    // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
