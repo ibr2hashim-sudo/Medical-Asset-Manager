@@ -153,7 +153,6 @@ fun DepartmentDevicesScreen(
                 .padding(paddingValues)
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            // Sub-Header Banner
             Surface(
                 modifier = Modifier.fillMaxWidth(),
                 color = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.6f),
@@ -167,7 +166,7 @@ fun DepartmentDevicesScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = if (isRtl) "قاعدة البيانات والمرتبطات (Related Data Bases)" else "Related Data Bases",
+                        text = if (isRtl) "قاعدة البيانات والمرتبطات" else "Related Data Bases",
                         style = MaterialTheme.typography.titleSmall,
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -189,26 +188,17 @@ fun DepartmentDevicesScreen(
                 }
             }
 
-            // Device List View
             if (assets.isEmpty()) {
                 Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(32.dp),
+                    modifier = Modifier.fillMaxSize().padding(32.dp),
                     contentAlignment = Alignment.Center
                 ) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Icon(Icons.Default.Inventory2, contentDescription = null, modifier = Modifier.size(72.dp), tint = TextGray)
                         Spacer(modifier = Modifier.height(16.dp))
                         Text(
-                            text = if (isRtl) "لا توجد أجهزة مسجلة في قسم \"$department\" بعد." else "No devices registered in \"$department\" yet.",
+                            text = if (isRtl) "لا توجد أجهزة مسجلة بعد." else "No devices registered yet.",
                             style = MaterialTheme.typography.titleMedium,
-                            color = TextGray
-                        )
-                        Spacer(modifier = Modifier.height(8.dp))
-                        Text(
-                            text = if (isRtl) "انقر على زر القلم في الأسفل لإضافة أول جهاز طبّي." else "Click the edit note button below to add the first medical device.",
-                            style = MaterialTheme.typography.bodySmall,
                             color = TextGray
                         )
                     }
@@ -224,14 +214,7 @@ fun DepartmentDevicesScreen(
                             isRtl = isRtl,
                             onClick = { onAssetClick(asset.id) },
                             onEditClick = { onEditAssetClick(asset) },
-                            onShareClick = {
-                                val sendIntent = Intent().apply {
-                                    action = Intent.ACTION_SEND
-                                    putExtra(Intent.EXTRA_TEXT, "Asset ID: ${asset.assetId}\nName: ${asset.assetName}\nDept: ${asset.department}\nModel: ${asset.model}\nSN: ${asset.serialNumber}\nStatus: ${asset.status}")
-                                    type = "text/plain"
-                                }
-                                context.startActivity(Intent.createChooser(sendIntent, "Share Asset Info"))
-                            }
+                            onShareClick = { /* logic */ }
                         )
                     }
                 }
@@ -257,88 +240,29 @@ fun DeviceListItemTile(
         border = BorderStroke(1.dp, BorderGray.copy(alpha = 0.6f))
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(12.dp),
+            modifier = Modifier.fillMaxWidth().padding(12.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Left Side: Square thumbnail displaying combined view of device photo and technical label tag
             Box(
                 modifier = Modifier
                     .size(64.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .background(MedicalBlueLight)
-                    .border(1.dp, MedicalBlue.copy(alpha = 0.3f), RoundedCornerShape(10.dp)),
+                    .background(MedicalBlueLight),
                 contentAlignment = Alignment.Center
             ) {
                 if (asset.devicePhotoUri != null) {
-                    AsyncImage(
-                        model = asset.devicePhotoUri,
-                        contentDescription = asset.assetName,
-                        contentScale = ContentScale.Crop,
-                        modifier = Modifier.fillMaxSize()
-                    )
+                    AsyncImage(model = asset.devicePhotoUri, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
                 } else {
-                    Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Icon(Icons.Default.MedicalInformation, contentDescription = null, tint = MedicalBlue, modifier = Modifier.size(24.dp))
-                        Text(
-                            text = if (asset.assetId.isNotEmpty()) asset.assetId.take(5) else "TAG",
-                            fontSize = 9.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = MedicalBlueDark
-                        )
-                    }
+                    Icon(Icons.Default.MedicalInformation, contentDescription = null, tint = MedicalBlue)
                 }
             }
-
             Spacer(modifier = Modifier.width(14.dp))
-
-            // Center Text Layout: Top row shows Asset ID in Bold, Bottom row shows Asset Name in regular gray
             Column(modifier = Modifier.weight(1f)) {
-                Text(
-                    text = if (asset.assetId.isNotEmpty()) asset.assetId else "ID-${asset.id}",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
-                Spacer(modifier = Modifier.height(3.dp))
-                Text(
-                    text = asset.assetName,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = TextGray,
-                    maxLines = 1
-                )
-                if (asset.model.isNotEmpty()) {
-                    Text(
-                        text = "Model: ${asset.model} • Qty: ${asset.quantity}",
-                        style = MaterialTheme.typography.labelSmall,
-                        color = TextGray.copy(alpha = 0.8f)
-                    )
-                }
+                Text(text = asset.assetId, fontWeight = FontWeight.Bold)
+                Text(text = asset.assetName, color = TextGray)
             }
-
-            // Right Side Action Icons: Edit Pencil Icon (📝) and Share/Paper-Airplane Icon
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                IconButton(onClick = onEditClick) {
-                    Icon(
-                        imageVector = Icons.Default.Edit,
-                        contentDescription = "Edit Asset",
-                        tint = MedicalBlue,
-                        modifier = Modifier.size(22.dp)
-                    )
-                }
-                IconButton(onClick = onShareClick) {
-                    Icon(
-                        imageVector = Icons.Default.Send,
-                        contentDescription = "Share Asset",
-                        tint = MedicalBlueAccent,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
-            }
+            IconButton(onClick = onEditClick) { Icon(Icons.Default.Edit, contentDescription = null) }
+            IconButton(onClick = onShareClick) { Icon(Icons.Default.Send, contentDescription = null) }
         }
     }
 }
